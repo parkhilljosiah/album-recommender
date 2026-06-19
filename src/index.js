@@ -71,7 +71,6 @@ app.get('/playlists/:playlistId/recommendations', async (req, res) => {
   }
 });
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`Server running on http://127.0.0.1:${PORT}`);
-  console.log(`To authorize, visit http://127.0.0.1:${PORT}/auth/login`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
