@@ -12,20 +12,21 @@
       background: #121212;
       color: #fff;
       min-height: 100vh;
-      padding: 2rem;
+      padding: 1.5rem;
     }
 
-    .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
-    .header-text h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    .header-text .subtitle { color: #aaa; font-size: 0.9rem; }
+    /* ── Header ── */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; }
+    .header-text h1 { font-size: 1.5rem; margin-bottom: 0.15rem; }
+    .header-text .subtitle { color: #aaa; font-size: 0.82rem; }
     .auth-btn {
-      padding: 0.6rem 1.25rem;
+      padding: 0.55rem 1.1rem;
       border-radius: 99px;
       border: 1px solid #1db954;
       background: transparent;
       color: #1db954;
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       cursor: pointer;
       text-decoration: none;
       white-space: nowrap;
@@ -33,11 +34,8 @@
     }
     .auth-btn:hover { background: #1db954; color: #000; }
 
-    .search-bar {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-    }
+    /* ── Search ── */
+    .search-bar { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; }
 
     input {
       flex: 1;
@@ -46,14 +44,14 @@
       border: 1px solid #333;
       background: #1e1e1e;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 1rem; /* ≥16px prevents iOS auto-zoom */
     }
-
     input::placeholder { color: #666; }
     input:focus { outline: none; border-color: #1db954; }
 
+    /* ── Buttons ── */
     button {
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       border-radius: 8px;
       border: none;
       background: #1db954;
@@ -62,51 +60,53 @@
       font-size: 0.95rem;
       cursor: pointer;
       white-space: nowrap;
+      min-height: 44px; /* touch target */
     }
-
     button:hover { background: #1ed760; }
     button:disabled { background: #555; color: #888; cursor: not-allowed; }
 
+    /* ── Error ── */
     .error {
       background: #3d1515;
       border: 1px solid #7f2020;
       color: #f87171;
       padding: 0.75rem 1rem;
       border-radius: 8px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
     }
 
+    /* ── Two-column layout (desktop) ── */
     .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
-    @media (max-width: 768px) { .sections { grid-template-columns: 1fr; } }
-
     section h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
       color: #1db954;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .count {
       background: #1db954;
       color: #000;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       padding: 0.1rem 0.5rem;
       border-radius: 99px;
     }
 
+    /* ── Album grid ── */
     .album-grid {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      max-height: 600px;
+      max-height: 520px;
       overflow-y: auto;
       padding-right: 0.25rem;
     }
-
     .album-grid::-webkit-scrollbar { width: 4px; }
     .album-grid::-webkit-scrollbar-track { background: #1e1e1e; border-radius: 2px; }
     .album-grid::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
@@ -115,48 +115,70 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      padding: 0.6rem 0.75rem;
+      padding: 0.55rem 0.75rem;
       background: #1e1e1e;
       border-radius: 8px;
       border: 1px solid #2a2a2a;
+      transition: border-color 0.15s, opacity 0.15s;
     }
+    .album-card.deselected { border-color: #2a2a2a; opacity: 0.4; }
 
     .album-card img {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 4px;
       object-fit: cover;
       flex-shrink: 0;
       background: #333;
     }
 
-    .album-info { overflow: hidden; }
-
+    .album-info { overflow: hidden; flex: 1; min-width: 0; }
     .album-name {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .album-artist {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: #aaa;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    .toggle-btn {
+      background: none;
+      border: 1px solid #1db954;
+      color: #1db954;
+      border-radius: 99px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+      min-height: 32px;
+      min-width: 52px;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .album-card.deselected .toggle-btn { border-color: #444; color: #555; }
+    .toggle-btn:hover { background: #1db954; color: #000; }
+    .album-card.deselected .toggle-btn:hover { background: #333; color: #aaa; }
+
+    /* ── Rec hint ── */
+    .rec-hint { font-size: 0.78rem; color: #666; margin-top: 0.5rem; }
+    .rec-hint span { color: #1db954; font-weight: 600; }
+
+    /* ── Recommendations box ── */
     .recs-box {
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      max-height: 600px;
+      max-height: 520px;
       overflow-y: auto;
       padding-right: 0.25rem;
     }
-
     .recs-box::-webkit-scrollbar { width: 4px; }
     .recs-box::-webkit-scrollbar-track { background: #1e1e1e; border-radius: 2px; }
     .recs-box::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
@@ -167,95 +189,97 @@
       border-radius: 10px;
       padding: 0.75rem 1rem;
     }
-
     .rec-top {
       display: flex;
       align-items: baseline;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
-
-    .rec-album {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
+    .rec-album { font-size: 0.92rem; font-weight: 700; color: #fff; }
     .rec-dot { color: #555; }
-
-    .rec-artist {
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-
+    .rec-artist { font-size: 0.85rem; color: #aaa; }
     .rec-year {
       margin-left: auto;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       color: #1db954;
       border: 1px solid #1db954;
       border-radius: 99px;
-      padding: 0.15rem 0.6rem;
+      padding: 0.15rem 0.55rem;
       white-space: nowrap;
     }
-
-    .rec-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-
+    .rec-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
     .rec-tag {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 500;
       background: #1db954;
       color: #000;
       border-radius: 99px;
-      padding: 0.2rem 0.7rem;
+      padding: 0.2rem 0.65rem;
     }
 
-    .recs-placeholder {
-      color: #666;
-      font-size: 0.9rem;
-      padding: 0.5rem 0;
-    }
+    .recs-placeholder { color: #666; font-size: 0.88rem; padding: 0.5rem 0; }
 
-    .skeleton {
-      background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.4s infinite;
-      border-radius: 6px;
-      height: 56px;
-    }
-
-    @keyframes shimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
+    /* ── Spinner ── */
     .spinner {
-      width: 18px; height: 18px;
+      width: 16px; height: 16px;
       border: 2px solid #444;
       border-top-color: #1db954;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: inline-block;
+      flex-shrink: 0;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── Export buttons ── */
     .export-btns { display: flex; gap: 0.4rem; margin-left: auto; }
-
     .export-btn {
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0.7rem;
       border-radius: 6px;
       border: 1px solid #444;
       background: #2a2a2a;
       color: #ccc;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 500;
       cursor: pointer;
+      min-height: 30px;
     }
-
     .export-btn:hover { border-color: #1db954; color: #1db954; background: #1a2a1a; }
     .export-btn.copied { border-color: #1db954; color: #1db954; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+
+      .header { margin-bottom: 1.25rem; }
+      .header-text h1 { font-size: 1.25rem; }
+      .header-text .subtitle { display: none; } /* save space on small screens */
+      .auth-btn { font-size: 0.78rem; padding: 0.45rem 0.9rem; }
+
+      .search-bar { flex-direction: column; }
+      .search-bar button { width: 100%; }
+
+      /* Stack sections vertically, no scrollable sub-boxes */
+      .sections { grid-template-columns: 1fr; gap: 1.5rem; }
+      .album-grid { max-height: none; overflow-y: visible; padding-right: 0; }
+      .recs-box   { max-height: none; overflow-y: visible; padding-right: 0; }
+
+      section h2 { font-size: 0.95rem; }
+
+      .album-card img { width: 38px; height: 38px; }
+      .album-name { font-size: 0.82rem; }
+      .album-artist { font-size: 0.72rem; }
+
+      .rec-card { padding: 0.65rem 0.85rem; }
+      .rec-album { font-size: 0.88rem; }
+      .rec-artist { font-size: 0.82rem; }
+
+      /* Export buttons wrap below the heading on narrow screens */
+      .export-btns { margin-left: 0; }
+      section h2 { flex-wrap: wrap; row-gap: 0.4rem; }
+    }
   </style>
 </head>
 <body>
@@ -268,7 +292,7 @@
   </div>
 
   <div class="search-bar">
-    <input id="playlistId" type="text" placeholder="Spotify playlist ID (e.g. 2tnuyasc7u4Nrz1nT7s0Pm)" />
+    <input id="playlistId" type="text" placeholder="Spotify playlist URL or ID" />
     <button id="loadBtn" onclick="load()">Load</button>
   </div>
 
@@ -278,6 +302,12 @@
     <section>
       <h2>Playlist Albums <span class="count" id="albumCount">0</span></h2>
       <div class="album-grid" id="albumGrid"></div>
+      <p class="rec-hint" id="likedHint" style="display:none">
+        <span id="likedCount">0</span> selected · remove albums you don't want included
+      </p>
+      <button id="recBtn" onclick="loadRecs()" style="margin-top:0.75rem;width:100%;display:none">
+        Get Recommendations
+      </button>
     </section>
 
     <section>
@@ -288,15 +318,27 @@
           <button class="export-btn" onclick="downloadRecs()" title="Download as text file">Download</button>
         </div>
       </h2>
-      <div class="recs-box" id="recsBox"><p class="recs-placeholder">Recommendations will appear here after albums load.</p></div>
+      <div class="recs-box" id="recsBox"><p class="recs-placeholder">Thumbs up some albums, then click Get Recommendations.</p></div>
     </section>
   </div>
 
   <script>
     const $ = id => document.getElementById(id);
 
+    function parsePlaylistId(input) {
+      // Full URL: https://open.spotify.com/playlist/ID?...
+      try {
+        const url = new URL(input);
+        const match = url.pathname.match(/\/playlist\/([A-Za-z0-9]+)/);
+        if (match) return match[1];
+      } catch (_) {}
+      // Plain ID (22 alphanumeric chars) or spotify:playlist:ID URI
+      const uriMatch = input.match(/(?:spotify:playlist:)?([A-Za-z0-9]{22})/);
+      return uriMatch ? uriMatch[1] : input;
+    }
+
     async function load() {
-      const id = $('playlistId').value.trim();
+      const id = parsePlaylistId($('playlistId').value.trim());
       if (!id) return;
 
       $('error').style.display = 'none';
@@ -305,58 +347,96 @@
       $('loadBtn').textContent = 'Loading…';
 
       try {
-        // Fetch albums
         const albumRes = await fetch(`/playlists/${id}/albums`);
         const albumData = await albumRes.json();
-
         if (!albumRes.ok) throw new Error(albumData.error ?? 'Failed to fetch albums');
 
         renderAlbums(albumData.albums);
         $('albumCount').textContent = albumData.total;
         $('sections').style.display = 'grid';
-
-        // Fetch recommendations in parallel (they take longer)
-        $('recsBox').innerHTML = '<p class="recs-placeholder">Generating recommendations…</p>';
-        $('recSpinner').style.display = 'inline-block';
-
-        const recRes = await fetch(`/playlists/${id}/recommendations`);
-        const recData = await recRes.json();
-
-        if (!recRes.ok) throw new Error(recData.error ?? 'Failed to fetch recommendations');
-
-        renderRecs(recData.recommendations);
-        $('exportBtns').style.display = 'flex';
+        $('recsBox').innerHTML = '<p class="recs-placeholder">Remove/Add albums, then click "Get Recommendations".</p>';
+        $('exportBtns').style.display = 'none';
       } catch (err) {
         $('error').textContent = err.message;
         $('error').style.display = 'block';
       } finally {
-        $('recSpinner').style.display = 'none';
         $('loadBtn').disabled = false;
         $('loadBtn').textContent = 'Load';
       }
     }
 
+    async function loadRecs() {
+      const id = parsePlaylistId($('playlistId').value.trim());
+      const liked = allAlbums.filter(a => votes[a.id] === 'up');
+      const payload = liked.length ? liked : allAlbums;
+
+      $('recBtn').disabled = true;
+      $('recsBox').innerHTML = '<p class="recs-placeholder">Generating recommendations…</p>';
+      $('recSpinner').style.display = 'inline-block';
+      $('exportBtns').style.display = 'none';
+
+      try {
+        const res = await fetch(`/playlists/${id}/recommendations`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ albums: payload }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error ?? 'Failed to fetch recommendations');
+        renderRecs(data.recommendations);
+        $('exportBtns').style.display = 'flex';
+      } catch (err) {
+        $('recsBox').innerHTML = `<p class="recs-placeholder" style="color:#f87171">${err.message}</p>`;
+      } finally {
+        $('recSpinner').style.display = 'none';
+        $('recBtn').disabled = false;
+      }
+    }
+
     function renderAlbums(albums) {
+      allAlbums = albums;
+      votes = Object.fromEntries(albums.map(a => [a.id, 'up']));
       const grid = $('albumGrid');
       grid.innerHTML = '';
       for (const album of albums) {
         const card = document.createElement('div');
         card.className = 'album-card';
+        card.dataset.id = album.id;
         card.innerHTML = `
           <img src="${album.image ?? ''}" alt="${esc(album.name)}" onerror="this.style.background='#333';this.removeAttribute('src')" />
           <div class="album-info">
             <div class="album-name">${esc(album.name)}</div>
             <div class="album-artist">${esc(album.artists.join(', '))}</div>
-          </div>`;
+          </div>
+          <button class="toggle-btn" onclick="toggle('${album.id}')">Remove</button>`;
         grid.appendChild(card);
       }
+      updateSelectedCount();
+      $('likedHint').style.display = 'block';
+      $('recBtn').style.display = 'block';
     }
 
     function esc(str) {
       return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
+    let allAlbums = [];
+    let votes = {};
     let currentRecs = [];
+
+    function toggle(albumId) {
+      votes[albumId] = votes[albumId] === 'up' ? 'down' : 'up';
+      const card = document.querySelector(`[data-id="${albumId}"]`);
+      const selected = votes[albumId] === 'up';
+      card.classList.toggle('deselected', !selected);
+      card.querySelector('.toggle-btn').textContent = selected ? 'Remove' : 'Add';
+      updateSelectedCount();
+    }
+
+    function updateSelectedCount() {
+      const selected = allAlbums.filter(a => votes[a.id] === 'up').length;
+      $('likedCount').textContent = selected;
+    }
 
     function renderRecs(recs) {
       currentRecs = recs;

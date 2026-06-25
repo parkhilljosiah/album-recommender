@@ -5,6 +5,7 @@ import { getPlaylistAlbums } from './spotifyClient.js';
 import { getRecommendations } from './recommendations.js';
 
 const app = express();
+app.use(express.json());
 app.use(express.static(new URL('../public', import.meta.url).pathname));
 const PORT = process.env.PORT ?? 3000;
 const REDIRECT_URI = process.env.REDIRECT_URI ?? `http://127.0.0.1:${PORT}/auth/callback`;
@@ -55,11 +56,12 @@ app.get('/playlists/:playlistId/albums', async (req, res) => {
   }
 });
 
-app.get('/playlists/:playlistId/recommendations', async (req, res) => {
+app.post('/playlists/:playlistId/recommendations', async (req, res) => {
   const { playlistId } = req.params;
+  const { albums: likedAlbums } = req.body;
 
   try {
-    const albums = await getPlaylistAlbums(playlistId);
+    const albums = likedAlbums?.length ? likedAlbums : await getPlaylistAlbums(playlistId);
     if (albums.length === 0) {
       return res.status(404).json({ error: 'No albums found in playlist' });
     }
